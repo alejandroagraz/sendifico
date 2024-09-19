@@ -14,3 +14,13 @@ services:
       - ./projects/backend:/app
       - /app/node_modules
       - /app/src/auths/certs
+      
+  ngrok:
+    image: ngrok/ngrok
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_TOKEN}
+    command: "http api-server:${PORT_LOCAL}"
+    ports:
+      - "${PORT_NGROK}:${PORT_NGROK}"
+    depends_on:
+      - api-server      
